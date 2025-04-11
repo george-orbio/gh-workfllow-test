@@ -10,7 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Some step that fails
+        run: |
+          echo "This step will fail"
+          exit 1
+
       - name: Debug URL (safely)
+        if: failure()
         run: |
           echo "URL protocol: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f1)"
           echo "URL domain: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f3)"
