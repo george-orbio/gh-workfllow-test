@@ -10,10 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug URL (safely)
+        run: |
+          echo "URL protocol: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f1)"
+          echo "URL domain: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f3)"
+
       - name: Notify webhook on failure
         run: |
+          # Try with explicit --url parameter and handle URL encoding
           curl -v -H "Content-Type: application/json" \
-          --request POST \ 
-          --data '{"text":"This is a test ❌"}' \
-          --url "${{ secrets.GC_WEBHOOK_URL }}"
-        shell: bash
+            --request POST \
+            --data '{"text":"This is a test ❌"}' \
+            --url "${{ secrets.GC_WEBHOOK_URL }}"
