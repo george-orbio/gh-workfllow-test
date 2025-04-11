@@ -16,3 +16,4 @@ jobs:
           --request POST \ 
           --data '{"text":"This is a test ❌"}' \
           "${{ secrets.GC_WEBHOOK_URL }}"
+        shell: bash
