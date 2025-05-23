@@ -9,22 +9,20 @@ jobs:
     name: Test webhook
     runs-on: ubuntu-latest
 
+    env:
+      WEBHOOK_URL: ${{ secrets.GC_WEBHOOK_URL }}
+
     steps:
       - name: Some step that fails
         run: |
           echo "This step will fail"
           exit 1
 
-      - name: Debug URL (safely)
-        if: failure()
-        run: |
-          echo "URL protocol: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f1)"
-          echo "URL domain: $(echo ${{ secrets.GC_WEBHOOK_URL }} | cut -d'/' -f3)"
-
       - name: Notify webhook on failure
+        if: failure()
         run: |
           # Try with explicit --url parameter and handle URL encoding
           curl -v -H "Content-Type: application/json" \
             --request POST \
             --data '{"text":"This is a test ❌"}' \
-            --url "${{ secrets.GC_WEBHOOK_URL }}"
+            --url $WEBHOOK_URL
