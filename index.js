@@ -8,13 +8,7 @@ function main() {
   console.log("PR Test");
   console.log("Format test");
 
-
-
-
-
-
-console.log("Unformatted test");
-
+  console.log("Unformatted test");
 }
 
 main();
