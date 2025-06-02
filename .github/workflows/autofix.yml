@@ -15,8 +15,8 @@ jobs:
 
       - run: npm ci
       - run: |
-          if ! npx prettier --check .; then
-            npx prettier --write .
+          if ! npx prettier --check "*.js"; then
+            npx prettier --write "*.js"
           fi
       - uses: autofix-ci/action@v1
         with:
