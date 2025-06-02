@@ -6,6 +6,7 @@ function main() {
   console.log("this is another test");
 
   console.log("PR Test");
+  console.log("Format test");
 }
 
 main();
